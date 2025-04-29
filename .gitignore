@@ -4,3 +4,4 @@
 *.out
 pytorch_quickstart.ipynb
 pytorch
+*.so
