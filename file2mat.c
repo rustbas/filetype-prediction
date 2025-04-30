@@ -27,6 +27,7 @@ static struct PyModuleDef file2mat = {
 };
 
 PyMODINIT_FUNC PyInit_file2mat() {
+  import_array()
   printf("hello from extension!\n");
 
   return PyModule_Create(&file2mat);
