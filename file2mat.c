@@ -1,7 +1,12 @@
 #include <Python.h>
 #include <stdio.h>
+#include <stdint.h>
 
-#define BUFFER_SIZE 256
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include <numpy/arrayobject.h>
+
+#define	 BUFFER_SIZE 256
+#define	 MSIZE       256
 
 PyObject *get_signature(PyObject *self, PyObject *args) {
   char *filename;
