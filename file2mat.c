@@ -10,7 +10,19 @@ PyObject *get_signature(PyObject *self, PyObject *args) {
 
   printf("%s\n", filename);
 
-  return PyLong_FromLong((long)1);
+  npy_intp dims[] = {MSIZE, MSIZE};
+  PyObject *result = PyArray_SimpleNew(2, dims, NPY_UINT32);
+
+  if (PyErr_Occurred()) {
+    return NULL;
+  }
+
+  uint32_t *result_data = PyArray_DATA((PyArrayObject *)result);
+
+  for (size_t i=0; i<MSIZE*MSIZE; i++)
+    result_data[i] = i;
+
+  return result;
 }
 
 static PyMethodDef methods[] = {
