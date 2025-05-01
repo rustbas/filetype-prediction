@@ -77,10 +77,12 @@ PyObject *get_signature(PyObject *self, PyObject *args) {
 
   uint32_t *result_data = PyArray_DATA((PyArrayObject *)result);
 
-  for (size_t i=0; i<MSIZE; i++)
-    for (size_t j=0; j<MSIZE; j++)
-      result_data[i*MSIZE + j] = matrix[i][j];
+  /* for (size_t i=0; i<MSIZE; i++) */
+  /*   for (size_t j=0; j<MSIZE; j++) */
+  /*     result_data[i*MSIZE + j] = matrix[i][j]; */
 
+  memcpy(result_data, matrix, MSIZE*MSIZE*sizeof(uint32_t));
+  
   free(rd.data);
   return result;
 }
