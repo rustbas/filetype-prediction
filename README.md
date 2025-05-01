@@ -32,7 +32,7 @@ $ mkdir -p data/{wav, pdf} # For example
 
 ## Heatmap example
 
-![Heatmap](assets/heatmap.png)
+![Heatmap](assets/heatmaps.png)
 
 ## Training curves
 
