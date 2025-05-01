@@ -55,19 +55,18 @@ int build_matrix(raw_data *rd, uint32_t matrix[MSIZE][MSIZE], int verbose) {
   return 0;
 }
 
-PyObject *get_signature(PyObject *self, PyObject *args) {
-  char *filename;
+PyObject *signature_from_filepath_by2(PyObject *self, PyObject *args) {
+  char *filepath;
   int verbose;
 
-  PyArg_ParseTuple(args, "si", &filename, &verbose);
-
-  printf("%s\n", filename);
+  PyArg_ParseTuple(args, "si", &filepath, &verbose);
 
   raw_data rd = {0};
   uint32_t matrix[MSIZE][MSIZE] = {0};
-  if (read_file(filename, &rd, 2) != 0) {
+  
+  if (read_file(filepath, &rd, 2) != 0) {
     char msg_error[1024];
-    snprintf(msg_error, sizeof(msg_error), "[ERR] Can't load file \"%s\": %s", filename, strerror(errno));
+    snprintf(msg_error, sizeof(msg_error), "[ERR] Can't load file \"%s\": %s", filepath, strerror(errno));
     PyErr_SetString(PyExc_FileNotFoundError, msg_error);
     return NULL;
   }
@@ -93,7 +92,7 @@ PyObject *get_signature(PyObject *self, PyObject *args) {
 }
 
 static PyMethodDef methods[] = {
-  { "get_signature", get_signature, METH_VARARGS, "Gets filename and return filled numpy.2darray"}, 
+  { "signature_from_filepath_by2", signature_from_filepath_by2, METH_VARARGS, "Gets filepath and return filled numpy.2darray"}, 
   { NULL, NULL, 0, NULL },
 };
 
