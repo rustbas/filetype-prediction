@@ -19,8 +19,10 @@ typedef struct {
 int read_file(const char *filepath, raw_data *rd, int verbose) {
   FILE *file = fopen(filepath, "rb");
 
-  if (file == NULL)
+  if (file == NULL) {
+    fprintf(stderr, "[ERR] Can't read file %s. Error: %s", filepath, strerror(errno));
     return 1;
+  }
   
   fseek(file, 0, SEEK_END); // Jump to the EOF
   rd->size = ftell(file);   // Get offset of file
