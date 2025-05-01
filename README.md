@@ -4,7 +4,8 @@ Example of using neural networks to predict file type by it's signature.
 
 # Features
 
-- Using neural networks from `pytorch` 
+- Using neural networks from `pytorch`,
+- Using `Numpy API` for fast signature calculating,
 
 # References
 
