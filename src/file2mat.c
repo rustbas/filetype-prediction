@@ -59,16 +59,18 @@ PyObject *get_signature(PyObject *self, PyObject *args) {
   char *filename;
   int verbose;
 
-  // TODO: parse verbose level
   PyArg_ParseTuple(args, "si", &filename, &verbose);
 
   printf("%s\n", filename);
 
   raw_data rd = {0};
   uint32_t matrix[MSIZE][MSIZE] = {0};
-  // TODO: Print errors
-  if (read_file(filename, &rd, 2) != 0)
+  if (read_file(filename, &rd, 2) != 0) {
+    char msg_error[1024];
+    snprintf(msg_error, sizeof(msg_error), "[ERR] Can't load file \"%s\": %s", filename, strerror(errno));
+    PyErr_SetString(PyExc_FileNotFoundError, msg_error);
     return NULL;
+  }
   build_matrix(&rd, matrix, 0);
 
   npy_intp dims[] = {MSIZE, MSIZE};
@@ -91,14 +93,14 @@ PyObject *get_signature(PyObject *self, PyObject *args) {
 }
 
 static PyMethodDef methods[] = {
-  { "get_signature", get_signature, METH_VARARGS, "Prints filename"}, 
+  { "get_signature", get_signature, METH_VARARGS, "Gets filename and return filled numpy.2darray"}, 
   { NULL, NULL, 0, NULL },
 };
 
 static struct PyModuleDef file2mat = {
   PyModuleDef_HEAD_INIT,
   "file2mat",
-  "Get file signatures in C and return NumPy-array.",
+  "Calculate file signature matrix by it's name.",
   -1,
   methods,
 };
