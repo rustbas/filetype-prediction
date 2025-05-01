@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+/* #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION */
+#define NPY_NO_DEPRECATED_API NPY_2_2_API_VERSION
 #include <numpy/arrayobject.h>
 
 #define	 BUFFER_SIZE 256
@@ -15,7 +16,7 @@ typedef struct {
   size_t size;
 } raw_data;
 
-int read_file(const char *filepath, raw_data *rd, ssize_t verbose) {
+int read_file(const char *filepath, raw_data *rd, int verbose) {
   FILE *file = fopen(filepath, "rb");
 
   if (file == NULL)
@@ -28,14 +29,14 @@ int read_file(const char *filepath, raw_data *rd, ssize_t verbose) {
   rd->data = (u8*) malloc(rd->size * sizeof(u8));
   fread(rd->data, rd->size, 1, file);
   
-  if (verbose == 2)
+  if (verbose)
     printf("[INFO] Readed %zu bytes\n", rd->size);
 
   fclose(file);
   return 0;
 }
 
-int build_matrix(raw_data *rd, uint32_t matrix[MSIZE][MSIZE], ssize_t verbose) {
+int build_matrix(raw_data *rd, uint32_t matrix[MSIZE][MSIZE], int verbose) {
   size_t idx1, idx2;
   for (size_t i=0; i<rd->size-1; i++){
     idx1 = rd->data[i];
@@ -43,8 +44,8 @@ int build_matrix(raw_data *rd, uint32_t matrix[MSIZE][MSIZE], ssize_t verbose) {
     matrix[idx1][idx2]++;
   }
 
-  // TODO: Fix verboses
-  if (verbose == 2) {
+
+  if (verbose) {
     printf("[INFO] First 4 elements\n    ");
     for (size_t i=0; i<4; i++)
       printf("%08X ", matrix[0][i]);
@@ -55,9 +56,10 @@ int build_matrix(raw_data *rd, uint32_t matrix[MSIZE][MSIZE], ssize_t verbose) {
 
 PyObject *get_signature(PyObject *self, PyObject *args) {
   char *filename;
+  int verbose;
 
   // TODO: parse verbose level
-  PyArg_ParseTuple(args, "s", &filename);
+  PyArg_ParseTuple(args, "si", &filename, &verbose);
 
   printf("%s\n", filename);
 
