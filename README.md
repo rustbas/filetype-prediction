@@ -28,6 +28,16 @@ $ mkdir -p data/{wav, pdf} # For example
 5. Run `jupyter notebook` and run `pipeline.ipynb` notebook.
 6. At the end you can see accuracy
 
+# Images
+
+## Heatmap example
+
+![Heatmap](assets/heatmap.png)
+
+## Training curves
+
+![Curves](assets/stats.png)
+
 # References
 
 - Inspiration video: https://youtu.be/AUWxl0WdiNI?si=mklboGVUC-mZ-d1M
