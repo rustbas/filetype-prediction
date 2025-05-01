@@ -21,7 +21,7 @@ $ conda install -f environtment.yaml
 3. Create data directory and needed subdirectories
 
 ```console
-user@me: $ mkdir -p data/{wav, pdf} # For example
+$ mkdir -p data/{wav, pdf} # For example
 ```
 
 4. Copy needed files into directories (I used `find` with `-exec` parameter)
