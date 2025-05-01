@@ -11,7 +11,7 @@ Idea of project is to estimate how we can predict (by using neural networks) typ
 1. `malloc` matrix with size 256x256 and set it to zero,
 2. Read file into byte array,
 3. Moving along array, get byte pairs `i` and `j`,
-4. Increase `matrix[i][j]` by one,
+4. Increase `matrix[i][j]` by one.
 
 # Features
 
@@ -37,7 +37,7 @@ $ mkdir -p data/{wav, pdf} # For example
 
 4. Copy needed files into directories (I used `find` with `-exec` parameter),
 5. Run `jupyter notebook` and run `pipeline.ipynb` notebook,
-6. At the end you can see accuracy,
+6. At the end you can see accuracy.
 
 # Images
 
