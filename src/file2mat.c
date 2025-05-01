@@ -44,7 +44,6 @@ int build_matrix(raw_data *rd, uint32_t matrix[MSIZE][MSIZE], int verbose) {
     matrix[idx1][idx2]++;
   }
 
-
   if (verbose) {
     printf("[INFO] First 4 elements\n    ");
     for (size_t i=0; i<4; i++)
