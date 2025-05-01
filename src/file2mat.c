@@ -64,13 +64,13 @@ PyObject *signature_from_filepath_by2(PyObject *self, PyObject *args) {
   raw_data rd = {0};
   uint32_t matrix[MSIZE][MSIZE] = {0};
   
-  if (read_file(filepath, &rd, 2) != 0) {
+  if (read_file(filepath, &rd, verbose) != 0) {
     char msg_error[1024];
     snprintf(msg_error, sizeof(msg_error), "[ERR] Can't load file \"%s\": %s", filepath, strerror(errno));
     PyErr_SetString(PyExc_FileNotFoundError, msg_error);
     return NULL;
   }
-  build_matrix(&rd, matrix, 0);
+  build_matrix(&rd, matrix, verbose);
 
   npy_intp dims[] = {MSIZE, MSIZE};
   PyObject *result = PyArray_SimpleNew(2, dims, NPY_UINT32);
@@ -106,7 +106,5 @@ static struct PyModuleDef file2mat = {
 
 PyMODINIT_FUNC PyInit_file2mat() {
   import_array()
-  printf("hello from extension!\n");
-
   return PyModule_Create(&file2mat);
 }
